@@ -1,6 +1,11 @@
 import 'package:get/get.dart';
 import 'package:swift_cart/consts/consts.dart';
 import 'package:swift_cart/controllers/home_contoller.dart';
+import 'home_screen.dart';
+import 'package:swift_cart/views/cart_screen/cart_screen.dart';
+import 'package:swift_cart/views/category_screen/category_screen.dart';
+import 'package:swift_cart/views/profile_screen/profile_screen.dart';
+
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -19,10 +24,10 @@ class Home extends StatelessWidget {
           icon: Image.asset(icProfile, width: 26), label: account),
     ];
     var navBody=[
-      Container(color: Colors.blue,),
-      Container(color: Colors.amber,),
-      Container(color: Colors.purple,),
-      Container(color: Colors.cyan,)
+      HomeScreen(),
+      CategoryScreen(),
+      CartScreen(),
+      ProfileScreen(),
     ];
     return Scaffold(
       body: Column(

@@ -21,4 +21,7 @@ const already="Already have an account? ";
 
 const home="Home", categories="Categories",cart="Cart", account="Account";
 
+//home screen settings
+const search="Search anything...",todaydeal="Today's Deal",flash="Flash Sale", topSellers="Top Sellers", brands="Brand", topCategories="Top Categories",featuredCategories="Featured Categories";
+
 
