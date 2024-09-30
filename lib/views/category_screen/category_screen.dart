@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:swift_cart/consts/consts.dart';
 import 'package:swift_cart/consts/lists.dart';
+import 'package:swift_cart/controllers/product_controller.dart';
 import 'package:swift_cart/views/category_screen/category_details.dart';
 import 'package:swift_cart/widgets_common/bg_widget.dart';
 
@@ -9,6 +10,8 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var controller=Get.put(ProductController());
+
     return bgWidget(
         child: Scaffold(
       appBar: AppBar(
@@ -28,7 +31,8 @@ class CategoryScreen extends StatelessWidget {
                   10.heightBox,
                   "${categoriesList[index]}".text.color(darkFontGrey).align(TextAlign.center).make(),
                 ],
-              ).box.white.clip(Clip.antiAlias).outerShadowSm.make().onTap((){
+              ).box.white.clip(Clip.antiAlias).outerShadowSm.roundedSM.make().onTap((){
+                controller.getSubCategories(categoriesList[index]);
                 Get.to(()=>CategoryDetails(title:categoriesList[index]));
               });
             }),

@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:swift_cart/consts/consts.dart';
+import 'package:swift_cart/controllers/product_controller.dart';
 import 'package:swift_cart/views/category_screen/item_details.dart';
 import 'package:swift_cart/widgets_common/bg_widget.dart';
 
@@ -11,6 +13,8 @@ class CategoryDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var controller=Get.find<ProductController>();
     return bgWidget(
         child: Scaffold(
       appBar: AppBar(
@@ -19,14 +23,16 @@ class CategoryDetails extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.all(12),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               physics: BouncingScrollPhysics(),
               child: Row(
+
                 children: List.generate(
-                    6,
-                    (index) => "Baby"
+                    controller.subcat.length,
+                    (index) => controller.subcat[index].toString()
                         .text
                         .size(12)
                         .fontFamily(semibold)
