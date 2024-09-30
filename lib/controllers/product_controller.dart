@@ -1,18 +1,33 @@
-import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:swift_cart/models/category_model.dart';
 
-class ProductController extends GetxController{
+class ProductController extends GetxController {
+  var subcat = <String>[].obs; // Using reactive variable
 
-  var subcat=[];
-  getSubCategories(title) async{
-    subcat.clear();
-    var data=await rootBundle.loadString("lib/services/category_model.json");
-    var decoded=categoryModelFromJson(data);
-    var s=decoded.categories.where((element)=>element.name==title).toList();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-    for(var e in s[0].subcategory){
-      subcat.add(e);
+  Future<void> getSubCategories(String categoryName) async {
+    try {
+      // Clear existing subcategories
+      subcat.clear();
+      print("HELLLOOO");
+
+      QuerySnapshot snapshot = await _firestore
+          .collection('categories')
+          .where('name', isEqualTo: categoryName)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        var categoryData = snapshot.docs.first.data() as Map<String, dynamic>;
+        List<dynamic> subcategories = categoryData['subcategory']; // Use the correct field name
+
+        //if(subcat.isEmpty) {
+          subcat.addAll(List<String>.from(subcategories));
+        // }
+      }
+    } catch (e) {
+      print("Error fetching subcategories: $e");
     }
+    print(subcat);
   }
 }
